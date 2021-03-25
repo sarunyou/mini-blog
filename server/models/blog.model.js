@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING(100),
 				allowNull: false,
 			},
-			author_id: {
+			user_id: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
 			},
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	Blog.associate = function (models) {
-		Blog.belongsTo(models.User, { as: 'author', foreignKey: 'author_id'})
+		Blog.belongsTo(models.User, { as: 'author', foreignKey: 'user_id'})
 	}
 
 	return Blog;
