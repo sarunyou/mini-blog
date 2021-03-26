@@ -1,7 +1,8 @@
 /**
  * Module dependencies.
  */
-
+require("dotenv-safe").config();
+require("./db/sequelize");
 var app = require("./app");
 var debug = require("debug")("server:server");
 var http = require("http");

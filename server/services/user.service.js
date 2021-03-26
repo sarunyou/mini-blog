@@ -1,8 +1,7 @@
 const bcrypt = require("bcryptjs");
-const { user: UserModel } = require("../db/sequelize");
-
+const { userRepository } = require("../repositories/user.repository");
 const getUserByName = (name) => {
-  return UserModel.findOne({
+  return userRepository.findOne({
     where: {
       name,
     },
@@ -16,7 +15,7 @@ const generateUserByName = async (userBody) => {
     6
   );
 
-  await UserModel.create({
+  await userRepository.create({
     name: userBody.name,
     password,
   });

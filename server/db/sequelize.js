@@ -43,7 +43,9 @@ sequelize
     console.log("Sequelize: All models were synchronized successfully.");
   })
   .catch((err) => {
-    console.log(err);
+    if (process.env.NODE_ENV !== "test") {
+      console.log(err);
+    }
   });
 
 db.sequelize = sequelize;

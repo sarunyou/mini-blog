@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const singIn = {
-  body: Joi.object().keys({
+  body: Joi.object({
     name: Joi.string().required(),
     password: Joi.number().required(),
   }),

@@ -1,10 +1,11 @@
 const createError = require("http-errors");
 const { pick } = require("rambda");
+const Joi = require("joi");
 
 const validate = (schema) => (req, res, next) => {
   const validSchema = pick(["params", "query", "body"], schema);
   const object = pick(Object.keys(validSchema), req);
-  const { error } = schema.validate(object);
+  const { error } = Joi.compile(validSchema).validate(object);
 
   if (error) {
     const errorMessage = error.details

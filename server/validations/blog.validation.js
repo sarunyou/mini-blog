@@ -17,13 +17,13 @@ const updateBlog = {
     category: Joi.string().required(),
   }),
   params: {
-    id: Joi.number().required(),
+    blogId: Joi.number().required(),
   },
 };
 
 const deleteBlog = {
   params: {
-    id: Joi.number().required(),
+    blogId: Joi.number().required(),
   },
 };
 

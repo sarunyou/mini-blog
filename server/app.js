@@ -1,8 +1,6 @@
+require("dotenv-safe").config();
 var express = require("express");
 var cors = require("cors");
-require("dotenv-safe").config();
-// Databases
-require("./db/sequelize");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const routerV1 = require("./routes/v1/index");
