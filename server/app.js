@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/v1", routerV1);
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   res.status(err.status || 400).json({
     message: err.message,
   });

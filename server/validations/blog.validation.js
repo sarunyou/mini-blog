@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 const createBlog = {
   body: Joi.object().keys({
@@ -17,18 +17,18 @@ const updateBlog = {
     category: Joi.string().required(),
   }),
   params: {
-      id: Joi.number().required()
-  }
+    id: Joi.number().required(),
+  },
 };
 
 const deleteBlog = {
   params: {
-      id: Joi.number().required()
-  }
+    id: Joi.number().required(),
+  },
 };
 
 module.exports = {
-    createBlog,
-    updateBlog,
-    deleteBlog
-}
+  createBlog,
+  updateBlog,
+  deleteBlog,
+};

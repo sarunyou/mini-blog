@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       hooks: {
-        beforeCreate: async (user, options) => {
+        beforeCreate: async (user) => {
           const saltRound = 10;
           user.password = await bcrypt.has(user.password, saltRound);
         },
       },
       instanceMethods: {
-        validPassword(password) {
+        isSamePassword(password) {
           return bcrypt.compare(password, this.password);
         },
       },

@@ -39,7 +39,7 @@ Object.keys(db).forEach(function (modelName) {
 // This creates the table if it doesn't exist (and does nothing if it already exists)
 sequelize
   .sync()
-  .then((_result) => {
+  .then(() => {
     console.log("Sequelize: All models were synchronized successfully.");
   })
   .catch((err) => {

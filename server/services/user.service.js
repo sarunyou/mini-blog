@@ -11,7 +11,10 @@ const getUserByName = (name) => {
 
 const generateUserByName = async (userBody) => {
   const saltRounds = 10;
-  const password = (await bcrypt.hashSync(name, saltRounds)).slice(0, 6);
+  const password = (await bcrypt.hashSync(userBody.name, saltRounds)).slice(
+    0,
+    6
+  );
 
   await UserModel.create({
     name: userBody.name,

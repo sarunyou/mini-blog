@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "jest --watch",
-    "lint": "eslint  --fix"
+    "lint": "eslint  --fix --ext .js ."
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
