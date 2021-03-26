@@ -7,7 +7,6 @@ function authenticateToken(req, res, next) {
   if (!token) {
     return next(new createHttpError.Unauthorized());
   }
-  console.log("token", token);
 
   jwt.verify(token, process.env.SECRET_JWT, (err, user) => {
     if (err) {

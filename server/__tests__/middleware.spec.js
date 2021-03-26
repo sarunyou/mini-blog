@@ -1,5 +1,5 @@
 const authorizationMiddleware = require("../middlewares/authentication");
-var faker = require("faker");
+const faker = require("faker");
 const app = require("../app");
 const request = require("supertest");
 const userService = require("../services/user.service");
@@ -16,7 +16,7 @@ describe("middleware", () => {
 
   test("authenticateToken given valid token should call next function", async () => {
     userService.getUserByName = jest.fn().mockResolvedValue({
-      id: faker.random.number(),
+      id: faker.datatype.number(),
       isSamePassword: () => true,
     });
 

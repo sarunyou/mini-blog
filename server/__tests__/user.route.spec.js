@@ -1,25 +1,27 @@
 const request = require("supertest");
 const app = require("../app");
+const faker = require("faker");
 const userService = require("../services/user.service");
+const { StatusCodes } = require("http-status-codes");
 
-it("Route Generate user given valid name should return password", async () => {
+test("Route Generate user given valid name should return password", async () => {
   userService.generateUserByName = jest.fn().mockReturnValue({
-    password: "12345",
+    password: faker.internet.password(),
   });
   const result = await request(app).post("/v1/users").send({
-    name: "author",
+    name: faker.internet.userName(),
   });
 
-  expect(result.status).toBe(200);
+  expect(result.status).toBe(StatusCodes.OK);
   expect(userService.generateUserByName).toHaveBeenCalled();
   expect(result.body.password).toBeDefined();
 });
 
-it("Route Generate user given invalid name should return error", async () => {
+test("Route Generate user given invalid name should return error", async () => {
   userService.generateUserByName = jest.fn().mockReturnValue({
-    password: "12345",
+    password: faker.internet.password(),
   });
-  const result = await request(app).post("/v1/users/generate-user").send({});
+  const result = await request(app).post("/v1/users").send({});
 
-  expect(result.status).toBe(400);
+  expect(result.status).toBe(StatusCodes.BAD_REQUEST);
 });
