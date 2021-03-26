@@ -11,7 +11,7 @@ const validate = (schema) => (req, res, next) => {
     const errorMessage = error.details
       .map((details) => details.message)
       .join(", ");
-    return next(new createError(400, { message: errorMessage }));
+    return next(new createError.BadRequest(errorMessage));
   }
 
   return next();

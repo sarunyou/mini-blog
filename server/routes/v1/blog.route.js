@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const blogController = require("../../controllers/blog.controller");
+const { authenticateToken } = require("../../middlewares/authentication");
 const validate = require("../../middlewares/validate");
 const {
   createBlog,
@@ -10,8 +11,18 @@ const {
 
 router
   .get("/", blogController.listBlogs)
-  .post("/", validate(createBlog), blogController.createBlog)
-  .patch("/:blogId", validate(updateBlog), blogController.updateBlog)
-  .delete("/:blogId", validate(deleteBlog), blogController.deleteBlog);
+  .post("/", authenticateToken, validate(createBlog), blogController.createBlog)
+  .patch(
+    "/:blogId",
+    authenticateToken,
+    validate(updateBlog),
+    blogController.updateBlog
+  )
+  .delete(
+    "/:blogId",
+    authenticateToken,
+    validate(deleteBlog),
+    blogController.deleteBlog
+  );
 
 module.exports = router;

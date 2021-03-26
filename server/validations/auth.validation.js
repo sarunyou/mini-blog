@@ -3,7 +3,7 @@ const Joi = require("joi");
 const singIn = {
   body: Joi.object({
     name: Joi.string().required(),
-    password: Joi.number().required(),
+    password: Joi.string().required(),
   }),
 };
 

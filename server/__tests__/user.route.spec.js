@@ -6,7 +6,7 @@ it("Route Generate user given valid name should return password", async () => {
   userService.generateUserByName = jest.fn().mockReturnValue({
     password: "12345",
   });
-  const result = await request(app).post("/v1/users/generate-user").send({
+  const result = await request(app).post("/v1/users").send({
     name: "author",
   });
 
