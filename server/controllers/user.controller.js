@@ -5,6 +5,12 @@ const generateUser = catchAsync(async (req, res) => {
   res.send({ password: user.password });
 });
 
+const getMe = catchAsync(async (req, res) => {
+  const user = await userService.getUserByName(req.user.name);
+  res.send(user);
+});
+
 module.exports = {
   generateUser,
+  getMe,
 };
