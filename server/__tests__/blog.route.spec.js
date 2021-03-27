@@ -6,6 +6,7 @@ const blogService = require("../services/blog.service");
 jest.mock("../middlewares/authentication", () => {
   return {
     authenticateToken: jest.fn((req, res, next) => {
+      req.user = {};
       next();
     }),
   };

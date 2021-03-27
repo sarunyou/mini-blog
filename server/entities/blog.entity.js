@@ -1,5 +1,6 @@
 const { UserEntity } = require("./user.entity");
 const BlogEntity = (data) => {
+  if (!data) return {};
   return {
     id: data.id,
     name: data.name,
@@ -11,6 +12,7 @@ const BlogEntity = (data) => {
 };
 
 const BlogsEntity = (data) => {
+  if (!data) return [];
   return data.map(BlogEntity);
 };
 
