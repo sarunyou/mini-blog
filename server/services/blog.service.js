@@ -1,24 +1,39 @@
 const { blogRepository } = require("../repositories/blog.repository");
 const { user: UserModel } = require("../db/sequelize");
+const createHttpError = require("http-errors");
 
 const createBlog = (createBody) => {
   return blogRepository.create(createBody);
 };
 
-const updateBlogById = (blogId, updateBody) => {
-  return blogRepository.update(updateBody, {
+const updateBlogById = async (blogId, updateBody) => {
+  const blog = await blogRepository.findOne({
     where: {
       id: blogId,
     },
   });
+
+  if (!blog) {
+    throw new createHttpError.NotFound("Blog not found");
+  }
+
+  Object.assign(blog, updateBody);
+  await blog.save();
+  return blog;
 };
 
-const deleteBlogById = (blogId) => {
-  return blogRepository.destroy({
+const deleteBlogById = async (blogId) => {
+  const blog = await blogRepository.findOne({
     where: {
       id: blogId,
     },
   });
+
+  if (!blog) {
+    throw new createHttpError.NotFound("Blog not found");
+  }
+
+  return blog.destroy();
 };
 
 const listBlogs = () => {

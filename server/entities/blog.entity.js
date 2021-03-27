@@ -6,7 +6,7 @@ const BlogEntity = (data) => {
     status: data.status,
     content: data.content,
     category: data.category,
-    author: UserEntity(data.author),
+    author: data.author && UserEntity(data.author),
   };
 };
 
