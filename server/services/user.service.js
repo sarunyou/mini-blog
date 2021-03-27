@@ -1,22 +1,22 @@
 const bcrypt = require("bcryptjs");
 const { userRepository } = require("../repositories/user.repository");
-const getUserByName = (name) => {
+const getUserByName = (username) => {
   return userRepository.findOne({
     where: {
-      name,
+      username,
     },
   });
 };
 
 const generateUserByName = async (userBody) => {
   const saltRounds = 10;
-  const password = (await bcrypt.hashSync(userBody.name, saltRounds)).slice(
+  const password = (await bcrypt.hashSync(userBody.username, saltRounds)).slice(
     0,
     6
   );
 
   await userRepository.create({
-    name: userBody.name,
+    username: userBody.username,
     password,
   });
 

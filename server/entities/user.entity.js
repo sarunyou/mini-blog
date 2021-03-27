@@ -2,7 +2,7 @@ const UserEntity = (data) => {
   if (!data) return {};
   return {
     id: data.id,
-    name: data.name,
+    username: data.username,
   };
 };
 

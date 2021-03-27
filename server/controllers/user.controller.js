@@ -50,11 +50,11 @@ const generateUser = catchAsync(async (req, res) => {
  *               properties:
  *                 id:
  *                   type: string
- *                 name:
+ *                 username:
  *                   type: string
  */
 const getMe = catchAsync(async (req, res) => {
-  const user = await userService.getUserByName(req.user.name);
+  const user = await userService.getUserByName(req.user.username);
   res.send(UserEntity(user));
 });
 

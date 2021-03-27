@@ -65,7 +65,7 @@ const { BlogsEntity, BlogEntity } = require("../entities/blog.entity");
  *                   author:
  *                     type: object
  *                     properties:
- *                       name:
+ *                       username:
  *                         type: string
  *                       id:
  *                         type: number
