@@ -8,6 +8,8 @@ const { BlogsEntity, BlogEntity } = require("../entities/blog.entity");
  *   post:
  *     tags: [Blog]
  *     summary: Create blog
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -87,11 +89,15 @@ const listBlogs = catchAsync(async (req, res) => {
  *   patch:
  *     tags: [Blog]
  *     summary: Update Blog
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: blogId
  *         description: Blog's id.
  *         type: number
  *     responses:
+ *       400:
+ *         description: Not owner blog or blog not found
  *       200:
  *         description: Return updated blog
  *         content:
@@ -121,11 +127,15 @@ const updateBlog = catchAsync(async (req, res) => {
  *   delete:
  *     tags: [Blog]
  *     summary: Delete Blog
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: blogId
  *         description: Blog's id.
  *         type: number
  *     responses:
+ *       400:
+ *         description: Not owner blog or blog not found
  *       200:
  *         description: Return deleted blog
  *         content:

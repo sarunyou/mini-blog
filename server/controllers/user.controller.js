@@ -38,6 +38,8 @@ const generateUser = catchAsync(async (req, res) => {
  *   get:
  *     tags: [User]
  *     summary: Get me
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Return own data.

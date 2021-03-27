@@ -7,4 +7,13 @@ module.exports = {
     description: "Mini blog API", // Description (optional)
   },
   basePath: "/", // Base path (optional)
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
 };
