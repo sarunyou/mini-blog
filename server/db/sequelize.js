@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
-
+const mysql2 = require("mysql2");
 // Connection Option 2: Passing parameters separately (other dialects)
 const sequelize = new Sequelize(
   process.env.MYSQL_DATABASE,
@@ -9,6 +9,7 @@ const sequelize = new Sequelize(
   process.env.MYSQL_ROOT_PASSWORD,
   {
     dialect: "mysql",
+    dialectModule: mysql2,
     host: process.env.MYSQL_HOST || "localhost",
     port: process.env.MYSQL_LOCAL_PORT,
     logging: false,

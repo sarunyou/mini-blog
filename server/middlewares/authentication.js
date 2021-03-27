@@ -8,12 +8,12 @@ function authenticateToken(req, res, next) {
     return next(new createHttpError.Unauthorized());
   }
 
-  jwt.verify(token, process.env.SECRET_JWT, (err, user) => {
+  jwt.verify(token, process.env.SECRET_JWT, (err, decoded) => {
     if (err) {
       return next(new createHttpError.Forbidden());
     }
 
-    req.user = user;
+    req.user = decoded.user;
 
     next();
   });

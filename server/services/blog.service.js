@@ -1,4 +1,5 @@
 const { blogRepository } = require("../repositories/blog.repository");
+const { user: UserModel } = require("../db/sequelize");
 
 const createBlog = (createBody) => {
   return blogRepository.create(createBody);
@@ -21,7 +22,14 @@ const deleteBlogById = (blogId) => {
 };
 
 const listBlogs = () => {
-  return blogRepository.findAll();
+  return blogRepository.findAll({
+    include: [
+      {
+        model: UserModel,
+        as: "author",
+      },
+    ],
+  });
 };
 
 module.exports = {

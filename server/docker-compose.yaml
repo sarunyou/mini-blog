@@ -24,8 +24,7 @@ services:
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     volumes: 
-      - ./:/app
-      - app/node_modules
+      - .:/app
     depends_on:
       - mysqldb
     stdin_open: true

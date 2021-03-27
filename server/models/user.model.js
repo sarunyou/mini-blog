@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       // Model attributes are defined here
       id: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
       name: {
@@ -20,19 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      underscored: true,
       hooks: {
         beforeCreate: async (user) => {
           const saltRound = 10;
-          user.password = await bcrypt.has(user.password, saltRound);
-        },
-      },
-      instanceMethods: {
-        isSamePassword(password) {
-          return bcrypt.compare(password, this.password);
+          user.password = await bcrypt.hash(user.password, saltRound);
         },
       },
     }
   );
+
+  User.prototype.isSamePassword = function (password) {
+    return bcrypt.compare(password, this.password);
+  };
 
   return User;
 };

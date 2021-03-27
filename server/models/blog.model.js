@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     "blog",
     {
       id: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
       name: {
@@ -23,13 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
-      user_id: {
-        type: DataTypes.STRING(100),
+      userId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
     {
-      // Other model options go here
+      underscored: true,
     }
   );
 
