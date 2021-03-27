@@ -3,6 +3,7 @@ const app = require("../app");
 const faker = require("faker");
 const { StatusCodes } = require("http-status-codes");
 const blogService = require("../services/blog.service");
+const createHttpError = require("http-errors");
 jest.mock("../middlewares/authentication", () => {
   return {
     authenticateToken: jest.fn((req, res, next) => {
@@ -22,6 +23,7 @@ describe("Blog routes", () => {
 
   test("Route update blog given valid blogId should return success", async () => {
     blogService.updateBlogById = jest.fn();
+    blogService.validateBlogOwner = jest.fn();
     const blogId = faker.datatype.number();
     const result = await request(app).patch(`/v1/blogs/${blogId}`).send({
       name: faker.internet.userName(),
@@ -35,10 +37,20 @@ describe("Blog routes", () => {
 
   test("Route delete blog given valid blogId should return success", async () => {
     blogService.deleteBlogById = jest.fn();
+    blogService.validateBlogOwner = jest.fn();
     const blogId = faker.datatype.number();
     const result = await request(app).delete(`/v1/blogs/${blogId}`);
     expect(result.status).toBe(StatusCodes.OK);
     expect(blogService.deleteBlogById).toHaveBeenCalled();
+  });
+
+  test("Route delete blog given perform with not owner blog should get error", async () => {
+    blogService.validateBlogOwner = jest.fn(() => {
+      throw new createHttpError.BadRequest();
+    });
+    const blogId = faker.datatype.number();
+    const result = await request(app).delete(`/v1/blogs/${blogId}`);
+    expect(result.status).toBe(StatusCodes.BAD_REQUEST);
   });
 
   test("Route create blog given valid body should return success", async () => {

@@ -110,6 +110,7 @@ const listBlogs = catchAsync(async (req, res) => {
  */
 
 const updateBlog = catchAsync(async (req, res) => {
+  await blogService.validateBlogOwner(req.params.blogId, req.user.id);
   const blog = await blogService.updateBlogById(req.params.blogId, req.body);
   res.send(BlogEntity(blog));
 });
@@ -142,6 +143,7 @@ const updateBlog = catchAsync(async (req, res) => {
  *                   type: string
  */
 const deleteBlog = catchAsync(async (req, res) => {
+  await blogService.validateBlogOwner(req.params.blogId, req.user.id);
   const blog = await blogService.deleteBlogById(req.params.blogId);
   res.send(BlogEntity(blog));
 });

@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       underscored: true,
+      paranoid: true,
       hooks: {
         beforeCreate: async (user) => {
           const saltRound = 10;
