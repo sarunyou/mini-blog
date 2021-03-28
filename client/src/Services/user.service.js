@@ -1,9 +1,11 @@
-import axios from "./utils/axiosConfig";
+import axios from "axios";
 
-class AuthService {
+const API_URL = "http://localhost:3000/v1/auth/";
+
+class UserService {
     login(username, password) {
         return axios
-            .post("/sign-in", {
+            .post(API_URL + "sign-in", {
                 username,
                 password,
             })
