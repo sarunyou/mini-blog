@@ -29,12 +29,14 @@ function BlogCard(props) {
                         {
                             isOwnerBlog &&
                             <Icon 
+                                size="lg"
                                 onClick={() => onEdit(props.data)}
                                 icon="edit" 
                                 className="opacity-0 group-hover:opacity-100 cursor-pointer mr-4"
                                 />
                         }
                         <Icon 
+                            size="lg"
                             icon="circle-o" 
                             className={`text-${statusInfo.color}-500`} />
                     </div>
@@ -68,6 +70,7 @@ function BlogCard(props) {
                     isOwnerBlog &&
                     <div className="flex items-end ml-auto">
                         <Icon 
+                            size="lg"
                             onClick={() => setIsOpenConfirmDelete(true)}
                             icon="trash-o" 
                             className="text-red-600 opacity-0 group-hover:opacity-100 cursor-pointer mr-4"

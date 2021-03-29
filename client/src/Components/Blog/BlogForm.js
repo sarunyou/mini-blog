@@ -27,7 +27,6 @@ const categories = [
     "ART",
 ];
 
-
 function BlogForm(props) {
     const {
         isOpen,
@@ -43,15 +42,12 @@ function BlogForm(props) {
     } = useForm();
 
     return (
-        <Modal
-            size="xs"
-            overflow
-            show={isOpen}
-            onHide={onClose}
-        >
+        <Modal size="xs" overflow show={isOpen} onHide={onClose}>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Header>
-                    <Modal.Title>{initialValues.id ? "Update" : "Create"} Blog</Modal.Title>
+                    <Modal.Title>
+                        {initialValues.id ? "Update" : "Create"} Blog
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <FormGroup>
@@ -69,7 +65,11 @@ function BlogForm(props) {
                                 },
                             }}
                             render={({ onChange, value }) => (
-                                <Input onChange={onChange} value={value} />
+                                <Input
+                                    data-testid="name"
+                                    onChange={onChange}
+                                    value={value}
+                                />
                             )}
                         />
                         {errors.name && (
@@ -97,6 +97,7 @@ function BlogForm(props) {
                                 <Input
                                     onChange={onChange}
                                     value={value}
+                                    data-testid="content"
                                     rows={5}
                                     name="content"
                                     componentClass="textarea"
@@ -119,6 +120,7 @@ function BlogForm(props) {
                             defaultValue={initialValues.category}
                             render={({ onChange, value }) => (
                                 <SelectPicker
+                                    data-testid="category"
                                     className="w-full"
                                     data={categories.map((category) => ({
                                         value: category,
@@ -141,6 +143,7 @@ function BlogForm(props) {
                             render={({ onChange, value }) => (
                                 <SelectPicker
                                     className="w-full"
+                                    data-testid="status"
                                     data={statues}
                                     onChange={onChange}
                                     value={value}
@@ -174,6 +177,7 @@ function BlogForm(props) {
                                 disabled={!isDirty}
                                 loading={isSubmitting}
                                 type="submit"
+                                data-testid="submit"
                                 appearance="primary"
                             >
                                 {initialValues.id ? "Update" : "Create"}
