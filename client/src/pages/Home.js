@@ -68,10 +68,13 @@ function Home() {
                     <Loader backdrop content="loading..." vertical />
                 </Paragraph>) 
             }
+            {
+                blogs && !blogs.length && <div className="flex justify-center p-20 text-2xl bg-gray-100">Please login to create the first mini blog</div>
+            }
             <div className="overflow-auto p-4 pt-0 md:p-16 md:pt-0 bg-gray-100 flex justify-center h-full flex-1">
                 <div className="container grid-cols-1 sm:grid-cols-3 gap-4 grid">
                     {
-                        blogs && (blogs.map((blog) => {
+                        blogs &&  blogs.map((blog) => {
                             return (
                                 <BlogCard
                                     onEdit={(data) => {
@@ -83,7 +86,7 @@ function Home() {
                                     data={blog}
                                 />
                             );
-                        }))
+                        })
                     }
                 </div>
             </div>
