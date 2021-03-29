@@ -63,6 +63,11 @@ function BlogForm(props) {
                                     message:
                                         "Please fill at least 5 characters",
                                 },
+                                maxLength: {
+                                    value: 99,
+                                    message:
+                                        "Please fill no longer than 99 characters",
+                                },
                             }}
                             render={({ onChange, value }) => (
                                 <Input
@@ -73,7 +78,7 @@ function BlogForm(props) {
                             )}
                         />
                         {errors.name && (
-                            <span>
+                            <span className="text-red-500">
                                 {errors.name.message ||
                                     "This field is required"}
                             </span>
@@ -86,6 +91,11 @@ function BlogForm(props) {
                             control={control}
                             rules={{
                                 required: true,
+                                maxLength: {
+                                    value: 500,
+                                    message:
+                                        "Please fill no longer than 500 characters",
+                                },
                                 minLength: {
                                     value: 5,
                                     message:
@@ -105,7 +115,7 @@ function BlogForm(props) {
                             )}
                         />
                         {errors.content && (
-                            <span>
+                            <span className="text-red-500">
                                 {errors.content.message ||
                                     "This field is required"}
                             </span>
@@ -131,7 +141,11 @@ function BlogForm(props) {
                                 />
                             )}
                         />
-                        {errors.category && <span>This field is required</span>}
+                        {errors.category && (
+                            <span className="text-red-500">
+                                This field is required
+                            </span>
+                        )}
                     </FormGroup>
                     <FormGroup>
                         <ControlLabel>Status</ControlLabel>
@@ -164,7 +178,11 @@ function BlogForm(props) {
                                 />
                             )}
                         />
-                        {errors.status && <span>This field is required</span>}
+                        {errors.status && (
+                            <span className="text-red-500">
+                                This field is required
+                            </span>
+                        )}
                     </FormGroup>
                 </Modal.Body>
                 <Modal.Footer>

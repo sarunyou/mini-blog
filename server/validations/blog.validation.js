@@ -2,19 +2,19 @@ const Joi = require("joi");
 
 const createBlog = {
   body: Joi.object().keys({
-    name: Joi.string().required(),
+    name: Joi.string().min(5).max(99).required(),
     status: Joi.number().required(),
-    content: Joi.string().required(),
-    category: Joi.string().required(),
+    content: Joi.string().min(5).max(500).required(),
+    category: Joi.string().min(5).max(99).required(),
   }),
 };
 
 const updateBlog = {
   body: Joi.object().keys({
-    name: Joi.string(),
+    name: Joi.string().min(5).max(99).required(),
     status: Joi.number(),
-    content: Joi.string(),
-    category: Joi.string(),
+    content: Joi.string().min(5).max(500).required(),
+    category: Joi.string().min(5).max(99).required(),
   }),
   params: {
     blogId: Joi.number().required(),
