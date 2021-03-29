@@ -60,6 +60,7 @@ const listBlogs = () => {
         as: "author",
       },
     ],
+    order: [["updatedAt", "DESC"]],
   });
 };
 

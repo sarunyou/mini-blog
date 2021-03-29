@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
+const faker = require("faker");
+const createHttpError = require("http-errors");
 const { userRepository } = require("../repositories/user.repository");
-const getUserByName = (username) => {
+const getUserByUsername = (username) => {
   return userRepository.findOne({
     where: {
       username,
@@ -9,11 +11,13 @@ const getUserByName = (username) => {
 };
 
 const generateUserByName = async (userBody) => {
-  const saltRounds = 10;
-  const password = (await bcrypt.hashSync(userBody.username, saltRounds)).slice(
-    0,
-    6
-  );
+  const user = await getUserByUsername(userBody.username);
+
+  if (user) {
+    throw new createHttpError.BadRequest("Duplicate username");
+  }
+
+  const password = faker.finance.mask();
 
   await userRepository.create({
     username: userBody.username,
@@ -24,6 +28,6 @@ const generateUserByName = async (userBody) => {
 };
 
 module.exports = {
-  getUserByName,
+  getUserByUsername,
   generateUserByName,
 };

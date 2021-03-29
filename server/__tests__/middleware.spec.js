@@ -15,21 +15,21 @@ describe("middleware", () => {
   });
 
   test("authenticateToken given valid token should call next function", async () => {
-    userService.getUserByName = jest.fn().mockResolvedValue({
+    userService.getUserByUsername = jest.fn().mockResolvedValue({
       id: faker.datatype.number(),
       isSamePassword: () => true,
     });
 
     const result = await request(app).post("/v1/auth/sign-in").send({
-      name: faker.name.firstName(),
+      username: faker.name.firstName(),
       password: faker.internet.password(),
     });
 
-    expect(result.body).toHaveProperty("token");
+    expect(result.body).toHaveProperty("accessToken");
 
     mockRequest = {
       headers: {
-        authorization: `Bearer ${result.body.token}`,
+        authorization: `Bearer ${result.body.accessToken}`,
       },
     };
 

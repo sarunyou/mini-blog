@@ -36,11 +36,11 @@ test("Route Generate user given invalid name should return error", async () => {
 });
 
 test("Route get Me given valid jwt should return me user", async () => {
-  userService.getUserByName = jest.fn().mockReturnValue({
+  userService.getUserByUsername = jest.fn().mockReturnValue({
     username: faker.internet.userName(),
     password: faker.internet.password(),
   });
   const result = await request(app).get("/v1/users/me");
-  expect(userService.getUserByName).toHaveBeenCalled();
+  expect(userService.getUserByUsername).toHaveBeenCalled();
   expect(result.status).toBe(StatusCodes.OK);
 });

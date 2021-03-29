@@ -54,7 +54,7 @@ const generateUser = catchAsync(async (req, res) => {
  *                   type: string
  */
 const getMe = catchAsync(async (req, res) => {
-  const user = await userService.getUserByName(req.user.username);
+  const user = await userService.getUserByUsername(req.user.username);
   res.send(UserEntity(user));
 });
 

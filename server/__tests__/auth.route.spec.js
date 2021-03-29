@@ -7,7 +7,7 @@ test("Route Sing in user given name should return token", async () => {
   const token = "1234";
   authService.singIn = jest.fn().mockResolvedValue(token);
   const result = await request(app).post("/v1/auth/sign-in").send({
-    name: faker.name.firstName(),
+    username: faker.name.firstName(),
     password: faker.internet.password(),
   });
   expect(result.status).toBe(200);
