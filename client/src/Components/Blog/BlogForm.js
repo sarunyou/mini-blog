@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
+import { statues } from "./constants";
 import {
     Button,
     ButtonToolbar,
@@ -26,23 +27,6 @@ const categories = [
     "ART",
 ];
 
-const statues = [
-    {
-        label: "Beginner",
-        value: 1,
-        color: "blue",
-    },
-    {
-        label: "Intermediate",
-        value: 2,
-        color: "purple",
-    },
-    {
-        label: "Advance",
-        value: 3,
-        color: "yellow",
-    },
-];
 
 function BlogForm(props) {
     const {
@@ -54,15 +38,12 @@ function BlogForm(props) {
     const {
         control,
         handleSubmit,
-        watch,
         errors,
         formState: { isDirty, isSubmitting },
     } = useForm();
-    console.log(watch("category")); // watch input value by passing the name of it
 
     return (
         <Modal
-            // dialogClassName="w-full sm:w-96"
             size="xs"
             overflow
             show={isOpen}
@@ -70,7 +51,7 @@ function BlogForm(props) {
         >
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Header>
-                    <Modal.Title>Create Blog</Modal.Title>
+                    <Modal.Title>{initialValues.id ? "Update" : "Create"} Blog</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <FormGroup>
@@ -190,11 +171,12 @@ function BlogForm(props) {
                                 Cancel
                             </Button>
                             <Button
-                                disabled={!isDirty || isSubmitting}
+                                disabled={!isDirty}
+                                loading={isSubmitting}
                                 type="submit"
                                 appearance="primary"
                             >
-                                Create
+                                {initialValues.id ? "Update" : "Create"}
                             </Button>
                         </ButtonToolbar>
                     </FormGroup>

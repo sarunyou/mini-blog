@@ -1,13 +1,17 @@
 import axios from "axios";
 
+const version = "v1";
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_BACKEND,
+    baseURL:
+        `${process.env.REACT_APP_BACKEND}/${version}` ||
+        `http://localhost:3000/${version}`,
 });
 
-const accessToken = localStorage.getItem("accessToken");
-
-if (accessToken) {
-    instance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-}
+instance.interceptors.request.use(function (config) {
+    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+    const token = `Bearer ${accessToken}`;
+    config.headers.Authorization = token;
+    return config;
+});
 
 export default instance;

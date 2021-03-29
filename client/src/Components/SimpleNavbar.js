@@ -1,10 +1,12 @@
 import React from "react";
 import { Navbar, Nav, Icon, Dropdown } from "rsuite";
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'
+import { useHistory } from "react-router-dom";
+import useAuth from "../hooks/useAuth.hook";
 
-function SimpleNavbar(props) {
-  const  { user } = props
+function SimpleNavbar() {
+    const { user, isLogin, logout } = useAuth();
+    const history = useHistory();
     return (
         <Navbar>
             <Navbar.Header>
@@ -12,15 +14,24 @@ function SimpleNavbar(props) {
             </Navbar.Header>
             <Navbar.Body>
                 <Nav pullRight>
-                    <Dropdown icon={<Icon icon="avatar" />} title={user.username || "Account"}>
-                      {
-                        user.username ? <Dropdown.Item>Log out</Dropdown.Item> 
-                        : <Dropdown.Item>
-                          <Link to="/login">
-                          Log in
-                          </Link>
-                          </Dropdown.Item>
-                      }
+                    <Dropdown
+                        icon={<Icon icon="avatar" />}
+                        title={user.username || "Account"}
+                    >
+                        {isLogin ? (
+                            <Dropdown.Item
+                              onClick={() => {
+                                      logout();
+                                      history.push("/login");
+                              }}
+                            >
+                                Log out
+                            </Dropdown.Item>
+                        ) : (
+                            <Dropdown.Item>
+                                <Link to="/login">Log in</Link>
+                            </Dropdown.Item>
+                        )}
                     </Dropdown>
                 </Nav>
             </Navbar.Body>
@@ -28,7 +39,4 @@ function SimpleNavbar(props) {
     );
 }
 
-SimpleNavbar.propTypes = {
-  user: PropTypes.func,
-}
 export default SimpleNavbar;

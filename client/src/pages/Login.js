@@ -8,16 +8,38 @@ import {
     FormGroup,
     ControlLabel,
     Input,
+    Notification,
 } from "rsuite";
+import useAuth from "../hooks/useAuth.hook";
+import userService from "../services/user.service";
 function Login() {
-    const { control, handleSubmit, errors } = useForm();
+    const auth = useAuth();
+    const {
+      
+         control,
+    
+           handleSubmit,
+  
+             errors,
+        formState: { isSubmitting },
+   } = useForm();
     const history = useHistory();
-    const onSubmit = (data) => {
-        console.log("onSubmit ~ data", data);
+    const onSubmit = async (data) => {
+        try {
+            const response = await userService.login(data);
+            auth.login(response.accessToken);
+            history.push("/home")
+        } catch (error) {
+            Notification.error({
+                title: "Error",
+                description: "Please check you username and password again",
+            });
+        }
     };
+
     return (
         <div className="h-full w-full bg-gray-100 flex justify-center items-center">
-            <div className="bg-white p-8">
+            <div className="mx-8 rounded-xl bg-white p-8 w-full md:w-1/2">
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <FormGroup>
                         <ControlLabel>Username</ControlLabel>
@@ -31,7 +53,7 @@ function Login() {
                                 <Input onChange={onChange} value={value} />
                             )}
                         />
-                        {errors.status && <span>This field is required</span>}
+                        {errors.username && <span>This field is required</span>}
                     </FormGroup>
                     <FormGroup>
                         <ControlLabel>Password</ControlLabel>
@@ -49,10 +71,10 @@ function Login() {
                                 />
                             )}
                         />
-                        {errors.status && <span>This field is required</span>}
+                        {errors.password && <span>This field is required</span>}
                     </FormGroup>
                     <FormGroup>
-                        <ButtonToolbar className="text-right">
+                        <ButtonToolbar className="flex justify-between">
                             <Button
                                 onClick={() => {
                                     history.push("/home");
@@ -61,7 +83,21 @@ function Login() {
                             >
                                 Back to home
                             </Button>
-                            <Button type="primary" appearance="primary">
+                            <Button
+                                loading={isSubmitting}
+                                type="primary"
+                
+                              
+                              
+                              
+                              
+                                                   appearance="primary"
+                            
+                            
+                            
+                            
+                            
+                            >
                                 Login
                             </Button>
                         </ButtonToolbar>
